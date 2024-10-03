@@ -7,4 +7,5 @@ requires-python = ">=3.12"
 dependencies = [
     "mediapipe>=0.10.15",
     "opencv-python-headless>=4.10.0.84",
+    "ruff>=0.6.8",
 ]
