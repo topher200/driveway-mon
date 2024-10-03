@@ -12,7 +12,13 @@ ENV UV_COMPILE_BYTECODE=1
 # Copy from the cache instead of linking since it's a mounted volume
 ENV UV_LINK_MODE=copy
 
+# QOL
+RUN echo 'alias ll="ls -al"' >> ~/.bashrc
+RUN echo 'set -o vi' >> ~/.bashrc
+
 RUN apt-get update && apt-get install -y \
+    # QOL
+    vim \
     # Install dependencies for OpenCV (libGL)
     libgl1-mesa-glx \
     libglib2.0-0
