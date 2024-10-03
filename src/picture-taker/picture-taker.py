@@ -2,8 +2,14 @@ import cv2
 import time
 from datetime import datetime
 from pathlib import Path
+import logging
+
+from common.logging_config import setup_logging
+
+setup_logging()
 
 # Configuration
+logging.info('Starting picture-taker')
 capture_interval_seconds = 300
 save_directory = Path("/driveway-mon-data/photos")
 
@@ -15,7 +21,7 @@ camera = cv2.VideoCapture(0)
 
 # Check if the camera opened successfully
 if not camera.isOpened():
-    print("Error: Could not open camera.")
+    logging.error("Error: Could not open camera.")
     exit()
 
 try:
@@ -30,15 +36,15 @@ try:
             
             # Save the screenshot to the specified path
             cv2.imwrite(str(image_path), frame)  # Convert Path object to string for OpenCV
-            print(f"Screenshot saved to {image_path}")
+            logging.info(f"Screenshot saved to {image_path}")
         else:
-            print("Error: Could not capture image.")
+            logging.error("Error: Could not capture image.")
 
         # Wait for the specified interval before capturing the next screenshot
         time.sleep(capture_interval_seconds)
 
 except KeyboardInterrupt:
-    print("Terminating the process...")
+    logging.info("Terminating the process...")
 
 finally:
     # Release the camera when the loop is terminated
