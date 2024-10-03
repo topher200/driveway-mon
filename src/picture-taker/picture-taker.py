@@ -5,7 +5,7 @@ from pathlib import Path
 
 # Configuration
 capture_interval_seconds = 300
-save_directory = Path("/home/topher/dev/driveway-mon-data/photos")
+save_directory = Path("/driveway-mon-data/photos")
 
 # Ensure the save directory exists
 save_directory.mkdir(parents=True, exist_ok=True)
