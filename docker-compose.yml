@@ -1,5 +1,6 @@
 x-service-options: &service-options
   build: .
+  init: true
   develop:
     # Sync the working directory with the `/app` directory in the container
     watch:
