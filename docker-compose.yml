@@ -1,0 +1,35 @@
+x-service-options: &service-options
+  build: .
+  develop:
+    # Sync the working directory with the `/app` directory in the container
+    watch:
+      - action: sync
+        path: .
+        target: /app
+        ignore:
+          - .venv/
+      # Rebuild the image on changes to the `pyproject.toml`
+      - action: rebuild
+        path: ./pyproject.toml
+  working_dir: /app
+  volumes:
+    - ../driveway-mon-data:/driveway-mon-data
+
+
+services:
+  picture-taker:
+    <<: *service-options
+    command: uv run src/picture-taker/picture-taker.py
+    devices:
+      - /dev/video0:/dev/video0
+    privileged: true
+
+  car-classifier:
+    <<: *service-options
+    command: uv run src/car-classifier/classifier.py
+
+  # driveway-dashboard:
+    # <<: *service-options
+    # ports:
+    # - "8000:8000"
+    # command: uv run src/driveway-dashboard/dashboard.py
